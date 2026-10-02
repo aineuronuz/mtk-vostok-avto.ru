@@ -42,20 +42,20 @@ def build():
     s = (YZ.parent / "src" / "index.html").read_text()
 
     s = sub(s, '<html lang="ru">', '<html lang="ru" class="mtk">')
-    s = sub(s, "<title>YuraZol Авто — автомобили из Китая под ключ</title>", "<title>МТК Восток-Авто — автомобили из Китая под ключ</title>")
+    s = sub(s, "<title>YuraZol Auto — автомобили из Китая под ключ</title>", "<title>МТК Восток-Авто — автомобили из Китая под ключ</title>")
     s = s.replace("https://yurazol.ru/", "https://mtk-vostok-avto.ru/")
-    s = s.replace('content="YuraZol Авто"', 'content="МТК Восток-Авто"')
-    s = s.replace('content="YuraZol Авто — автомобили из Китая под ключ"', 'content="МТК Восток-Авто — автомобили из Китая под ключ"')
+    s = s.replace('content="YuraZol Auto"', 'content="МТК Восток-Авто"')
+    s = s.replace('content="YuraZol Auto — автомобили из Китая под ключ"', 'content="МТК Восток-Авто — автомобили из Китая под ключ"')
     s = sub(s, '<meta name="theme-color" content="#f4f8f9">', '<meta name="theme-color" content="#f5f7fb">')
     s = re.sub(r'<link rel="icon"[^>]*>\n<link rel="apple-touch-icon"[^>]*>\n', "", s)   # логотипа пока нет
     s = sub(s, "</style>", PALETTE + "</style>")
 
     # шапка и подвал без логотипа — только название
-    s = re.sub(r'<a class="brand" href="#"><img src="assets/img/logo96.png"[^>]*><span><b>YuraZol Авто</b>',
+    s = re.sub(r'<a class="brand" href="#"><img src="assets/img/logo96.png"[^>]*><span><b>YuraZol Auto</b>',
                '<a class="brand" href="#"><span><b class="wm">МТК <span class="nw">Восток-Авто</span></b>', s, count=1)
-    s = re.sub(r'<a class="brand" href="#"><img src="assets/img/logo96.png"[^>]*><span><b>YuraZol Авто</b></span></a>',
+    s = re.sub(r'<a class="brand" href="#"><img src="assets/img/logo96.png"[^>]*><span><b>YuraZol Auto</b></span></a>',
                '<a class="brand" href="#"><span><b class="wm">МТК Восток-Авто</b></span></a>', s, count=1)
-    s = sub(s, "© 2026 YuraZol Авто", "© 2026 МТК Восток-Авто")
+    s = sub(s, "© 2026 YuraZol Auto", "© 2026 МТК Восток-Авто")
     s = sub(s, '<div class="ghost" aria-hidden="true">YURAZOL</div>', '<div class="ghost" aria-hidden="true">VOSTOK</div>')
 
     # главное фото — студийное, без номеров
@@ -64,7 +64,7 @@ def build():
                '<source srcset="assets/img/hero.webp" type="image/webp"><img src="assets/img/hero.jpg" '
                'alt="Автомобиль из Китая" width="1400" height="781" fetchpriority="high"></picture>', s, count=1, flags=re.S)
 
-    s = sub(s, "<span>YuraZol Авто — подбор автомобиля и сопровождение сделки</span>",
+    s = sub(s, "<span>YuraZol Auto — подбор автомобиля и сопровождение сделки</span>",
             "<span>МТК Восток-Авто — подбор автомобиля и сопровождение сделки</span>")
     # канал в контактах
     s = sub(s, '<nav class="links">\n',
@@ -72,7 +72,7 @@ def build():
             '<small>автомобили и новости</small></span><span class="ar">→</span></a>\n')
 
     # «Получить каталог»: окно с каналом МТК (в MAX канала пока нет)
-    s = sub(s, "на канал YuraZol Авто", "на канал МТК Восток-Авто")
+    s = sub(s, "на канал YuraZol Auto", "на канал МТК Восток-Авто")
     s = catalog(s, tg="https://t.me/mtk_vostok_avto")
 
     # порядок: сначала этапы сделки, потом цена
