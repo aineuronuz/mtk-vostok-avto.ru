@@ -13,7 +13,7 @@ from PIL import Image, ImageOps
 ROOT = Path(__file__).resolve().parent
 YZ = ROOT.parent / "yurazol.ru" / "docs"
 sys.path.insert(0, str(ROOT.parent / "yurazol.ru"))
-from build import render  # noqa: E402
+from build import catalog, render  # noqa: E402
 OUT = ROOT / "docs"
 IMG = OUT / "assets" / "img"
 
@@ -70,6 +70,10 @@ def build():
     s = sub(s, '<nav class="links">\n',
             '<nav class="links">\n          <a href="https://t.me/mtk_vostok_avto"><span><b>Telegram-канал</b>'
             '<small>автомобили и новости</small></span><span class="ar">→</span></a>\n')
+
+    # «Получить каталог»: окно с каналом МТК (в MAX канала пока нет)
+    s = sub(s, "на канал YuraZol Авто", "на канал МТК Восток-Авто")
+    s = catalog(s, tg="https://t.me/mtk_vostok_avto")
 
     # порядок: сначала этапы сделки, потом цена
     price, steps = section(s, "price"), section(s, "steps")
