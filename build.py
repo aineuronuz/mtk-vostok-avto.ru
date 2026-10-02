@@ -1,4 +1,4 @@
-"""Сайт МТК Восток-Авто — та же страница, что yurazol.ru, со своим брендом, цветом и порядком блоков.
+"""Сайт МТК Восток-Авто — та же страница, что yurazol.ru, со своим брендом, цветом (синий КП; у yurazol.ru бирюзовый) и порядком блоков.
 
 Берёт исходник ../yurazol.ru/src/index.html, меняет бренд, собирает тем же render() и пишет docs/index.html.
 Картинки — из ../yurazol.ru/docs/assets (сначала prep_assets.py там, если их меняли). Запуск: python3 build.py
@@ -18,8 +18,8 @@ OUT = ROOT / "docs"
 IMG = OUT / "assets" / "img"
 
 PALETTE = """
-html.mtk{--bg:#f4f8f9;--bg2:#e4f0f2;--card:#fff;--line:rgba(19,84,99,.15);--ink:#0d1d22;--muted:rgba(13,29,34,.66);
---acc:#1d7a8c;--acc2:#135463;--soft:#e2f0f2;--glow:rgba(29,122,140,.17);--sh:0 1px 2px rgba(13,29,34,.05),0 12px 34px -14px rgba(19,84,99,.25)}
+html.mtk{--bg:#f5f7fb;--bg2:#eaf0f8;--card:#fff;--card2:#fbfcfe;--line:rgba(29,61,107,.14);--ink:#0e1b2e;--muted:rgba(14,27,46,.66);
+--acc:#2b5797;--acc2:#1d3d6b;--soft:#e6edf7;--glow:rgba(43,87,151,.16);--sh:0 1px 2px rgba(14,27,46,.05),0 12px 34px -14px rgba(29,61,107,.22)}
 html.mtk.navy{--bg:#f4f6fa;--bg2:#e7ecf4;--line:rgba(20,39,70,.15);--ink:#0c1626;--acc:#1f3a68;--acc2:#142746;--soft:#e4e9f2;--glow:rgba(31,58,104,.16)}
 html.mtk.indigo{--bg:#f5f5fb;--bg2:#e9e9f6;--line:rgba(39,50,109,.15);--ink:#11132a;--acc:#3b4a9c;--acc2:#27326d;--soft:#e7e8f5;--glow:rgba(59,74,156,.16)}
 .wm{font-family:'Unbounded',sans-serif;font-weight:700;letter-spacing:.01em}
@@ -46,7 +46,7 @@ def build():
     s = s.replace("https://yurazol.ru/", "https://mtk-vostok-avto.ru/")
     s = s.replace('content="YuraZol Авто"', 'content="МТК Восток-Авто"')
     s = s.replace('content="YuraZol Авто — автомобили из Китая под ключ"', 'content="МТК Восток-Авто — автомобили из Китая под ключ"')
-    s = sub(s, '<meta name="theme-color" content="#f5f7fb">', '<meta name="theme-color" content="#f4f8f9">')
+    s = sub(s, '<meta name="theme-color" content="#f4f8f9">', '<meta name="theme-color" content="#f5f7fb">')
     s = re.sub(r'<link rel="icon"[^>]*>\n<link rel="apple-touch-icon"[^>]*>\n', "", s)   # логотипа пока нет
     s = sub(s, "</style>", PALETTE + "</style>")
 
