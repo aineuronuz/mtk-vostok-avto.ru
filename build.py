@@ -24,7 +24,48 @@ html.mtk.navy{--bg:#f4f6fa;--bg2:#e7ecf4;--line:rgba(20,39,70,.15);--ink:#0c1626
 html.mtk.indigo{--bg:#f5f5fb;--bg2:#e9e9f6;--line:rgba(39,50,109,.15);--ink:#11132a;--acc:#3b4a9c;--acc2:#27326d;--soft:#e7e8f5;--glow:rgba(59,74,156,.16)}
 .wm{font-family:'Unbounded',sans-serif;font-weight:700;letter-spacing:.01em}
 @media (max-width:420px){html.mtk .brand b{display:block;font-size:12.5px;line-height:1.15}}
+.cint{position:relative;color:var(--muted);margin:0 0 28px;max-width:560px}
+.team{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+.team .who{display:flex;flex-direction:column}
+.team .who>span{flex:1}
+.team .im{display:flex;gap:10px;margin-top:10px}.team .im .btn{flex:1;padding:0 12px}
+.team .tl{min-height:64px}.team .mx{display:block;color:var(--muted);font-size:13px;margin-top:4px}
+.fin2 .links.ch{position:relative;margin-top:34px}
+@media (max-width:980px){.team{grid-template-columns:1fr;max-width:480px}.team .tl{min-height:0}}
 """
+
+# контакты: Юрий, Глеб (Санкт-Петербург), Иван (Екатеринбург) — «Авто» по просьбе Юрия 04.10.2026
+TEAM = [
+    dict(img="yura", name="Юрий Золотарёв", note="Подбор автомобиля и сопровождение сделки",
+         tg="YuraZol", wa="79119261617", mx="MAX_HREF", tel="+7 911 926-16-17"),
+    dict(img="gleb", name="Глеб Цепелев", note="Санкт-Петербург",
+         tg="GlebTsepelev", wa="79817613421", mx="phone", tel="+7 981 761-34-21"),
+    dict(img="ivan", name="Иван Сергеев", note="Екатеринбург",
+         tg="ivan_sergand", wa="79667948699", mx=None, tel="+7 966 794-86-99"),
+]
+
+
+def team():
+    cards = []
+    for p in TEAM:
+        im = f'<a class="btn o sm" href="https://wa.me/{p["wa"]}">WhatsApp</a>'
+        if p["mx"] and p["mx"] != "phone":
+            im += f'<a class="btn o sm" href="{p["mx"]}">MAX</a>'
+        tel = "+" + re.sub(r"\D", "", p["tel"])
+        cards.append(
+            f'      <div class="who rv">\n'
+            f'        <picture><source srcset="assets/img/{p["img"]}.webp" type="image/webp"><img src="assets/img/{p["img"]}.jpg" '
+            f'alt="{p["name"]}" width="132" height="132" loading="lazy"></picture>\n'
+            f'        <b>{p["name"]}</b>\n        <span>{p["note"]}</span>\n'
+            f'        <a class="btn g" href="https://t.me/{p["tg"]}">Написать в Telegram <span class="ar">→</span></a>\n'
+            f'        <div class="im">{im}</div>\n'
+            f'        <div class="tl"><a class="ph" href="tel:{tel}">{p["tel"]}</a>'
+            + ('<small class="mx">Этот же номер — в MAX</small>' if p["mx"] == "phone" else "")
+            + '</div>\n      </div>\n')
+    return ('\n    <p class="cint rv">Напишите, какую машину и в какой город хотите, — подберём варианты и посчитаем стоимость под ключ.</p>\n'
+            '    <div class="team">\n' + "".join(cards) + '    </div>\n'
+            '    <nav class="links ch">\n      <a href="https://t.me/mtk_vostok_avto"><span><b>Telegram-канал</b>'
+            '<small>автомобили и новости</small></span><span class="ar">→</span></a>\n    </nav>\n')
 
 
 def sub(s, old, new, count=1):
@@ -64,12 +105,9 @@ def build():
                '<source srcset="assets/img/hero.webp" type="image/webp"><img src="assets/img/hero.jpg" '
                'alt="Автомобиль из Китая" width="1400" height="781" fetchpriority="high"></picture>', s, count=1, flags=re.S)
 
-    s = sub(s, "<span>YuraZol Auto — подбор автомобиля и сопровождение сделки</span>",
-            "<span>МТК Восток-Авто — подбор автомобиля и сопровождение сделки</span>")
-    # канал в контактах
-    s = sub(s, '<nav class="links">\n',
-            '<nav class="links">\n          <a href="https://t.me/mtk_vostok_avto"><span><b>Telegram-канал</b>'
-            '<small>автомобили и новости</small></span><span class="ar">→</span></a>\n')
+    # контакты: три карточки вместо Юрия одного, под ними канал
+    s, n = re.subn(r'\n    <div class="cgrid">\n.*?\n    </div>\n', lambda m: team(), s, count=1, flags=re.S)
+    assert n, "нет блока контактов"
 
     # «Получить каталог»: окно с каналом МТК (в MAX канала пока нет)
     s = sub(s, "на канал YuraZol Auto", "на канал МТК Восток-Авто")
@@ -94,6 +132,10 @@ def assets():
     for f in (YZ / "assets" / "img").iterdir():
         if f.name.startswith(("d_", "sec", "yura")):
             shutil.copy2(f, IMG / f.name)
+    for name, c in (("gleb", 0.36), ("ivan", 0.42)):   # круглые фото для контактов, как yura в prep_assets.py
+        im = ImageOps.fit(Image.open(Path.home() / f"auto-china/assets/{name}.jpg").convert("RGB"), (320, 320), Image.LANCZOS, centering=(0.5, c))
+        im.save(IMG / f"{name}.jpg", quality=84, optimize=True, progressive=True)
+        im.save(IMG / f"{name}.webp", quality=82, method=6)
     hero = Image.open(Path.home() / "auto-china/catalog/cars/hero_sec2.jpg").convert("RGB")
     for name, w in (("hero", 2200), ("hero_m", 1100)):
         im = hero.resize((w, round(hero.height * w / hero.width)), Image.LANCZOS) if hero.width > w else hero

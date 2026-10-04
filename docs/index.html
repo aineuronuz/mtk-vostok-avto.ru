@@ -281,6 +281,14 @@ html.mtk.navy{--bg:#f4f6fa;--bg2:#e7ecf4;--line:rgba(20,39,70,.15);--ink:#0c1626
 html.mtk.indigo{--bg:#f5f5fb;--bg2:#e9e9f6;--line:rgba(39,50,109,.15);--ink:#11132a;--acc:#3b4a9c;--acc2:#27326d;--soft:#e7e8f5;--glow:rgba(59,74,156,.16)}
 .wm{font-family:'Unbounded',sans-serif;font-weight:700;letter-spacing:.01em}
 @media (max-width:420px){html.mtk .brand b{display:block;font-size:12.5px;line-height:1.15}}
+.cint{position:relative;color:var(--muted);margin:0 0 28px;max-width:560px}
+.team{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+.team .who{display:flex;flex-direction:column}
+.team .who>span{flex:1}
+.team .im{display:flex;gap:10px;margin-top:10px}.team .im .btn{flex:1;padding:0 12px}
+.team .tl{min-height:64px}.team .mx{display:block;color:var(--muted);font-size:13px;margin-top:4px}
+.fin2 .links.ch{position:relative;margin-top:34px}
+@media (max-width:980px){.team{grid-template-columns:1fr;max-width:480px}.team .tl{min-height:0}}
 </style>
 </head>
 <body>
@@ -426,25 +434,36 @@ html.mtk.indigo{--bg:#f5f5fb;--bg2:#e9e9f6;--line:rgba(39,50,109,.15);--ink:#111
   <div class="wrap">
     <div class="eb">Связаться</div>
     <h2 class="rv">Ваш автомобиль<br>из&nbsp;Китая.<br><span class="acc">Под&nbsp;ключ.</span></h2>
-    <div class="cgrid">
-      <div class="rv">
-        <p>Напишите, какую машину и&nbsp;в&nbsp;какой город хотите,&nbsp;— подберём варианты и&nbsp;посчитаем стоимость под&nbsp;ключ.</p>
-        <nav class="links">
-          <a href="https://t.me/mtk_vostok_avto"><span><b>Telegram-канал</b><small>автомобили и&nbsp;новости</small></span><span class="ar">→</span></a>
-          <a href="https://t.me/YuraZol"><span><b>Telegram</b><small>написать Юрию</small></span><span class="ar">→</span></a>
-          <a href="https://max.ru/u/f9LHodD0cOLQzwPoUyWBoejqc5iq940FAYmSIsMAm8Hr1FcNu85zWG126zY"><span><b>MAX</b><small>написать Юрию</small></span><span class="ar">→</span></a>
-          <a href="https://wa.me/79119261617"><span><b>WhatsApp</b><small>написать Юрию</small></span><span class="ar">→</span></a>
-          <a href="tel:+79119261617"><span><b>+7&nbsp;911 926-16-17</b><small>позвонить</small></span><span class="ar">→</span></a>
-        </nav>
-      </div>
+    <p class="cint rv">Напишите, какую машину и&nbsp;в&nbsp;какой город хотите,&nbsp;— подберём варианты и&nbsp;посчитаем стоимость под&nbsp;ключ.</p>
+    <div class="team">
       <div class="who rv">
         <picture><source srcset="assets/img/yura.webp" type="image/webp"><img src="assets/img/yura.jpg" alt="Юрий Золотарёв" width="132" height="132" loading="lazy"></picture>
         <b>Юрий Золотарёв</b>
-        <span>МТК Восток-Авто&nbsp;— подбор автомобиля и&nbsp;сопровождение сделки</span>
+        <span>Подбор автомобиля и&nbsp;сопровождение сделки</span>
         <a class="btn g" href="https://t.me/YuraZol">Написать в&nbsp;Telegram <span class="ar">→</span></a>
-        <a class="ph" href="tel:+79119261617">+7&nbsp;911 926-16-17</a>
+        <div class="im"><a class="btn o sm" href="https://wa.me/79119261617">WhatsApp</a><a class="btn o sm" href="https://max.ru/u/f9LHodD0cOLQzwPoUyWBoejqc5iq940FAYmSIsMAm8Hr1FcNu85zWG126zY">MAX</a></div>
+        <div class="tl"><a class="ph" href="tel:+79119261617">+7&nbsp;911 926-16-17</a></div>
+      </div>
+      <div class="who rv">
+        <picture><source srcset="assets/img/gleb.webp" type="image/webp"><img src="assets/img/gleb.jpg" alt="Глеб Цепелев" width="132" height="132" loading="lazy"></picture>
+        <b>Глеб Цепелев</b>
+        <span>Санкт-Петербург</span>
+        <a class="btn g" href="https://t.me/GlebTsepelev">Написать в&nbsp;Telegram <span class="ar">→</span></a>
+        <div class="im"><a class="btn o sm" href="https://wa.me/79817613421">WhatsApp</a></div>
+        <div class="tl"><a class="ph" href="tel:+79817613421">+7&nbsp;981 761-34-21</a><small class="mx">Этот же номер&nbsp;— в&nbsp;MAX</small></div>
+      </div>
+      <div class="who rv">
+        <picture><source srcset="assets/img/ivan.webp" type="image/webp"><img src="assets/img/ivan.jpg" alt="Иван Сергеев" width="132" height="132" loading="lazy"></picture>
+        <b>Иван Сергеев</b>
+        <span>Екатеринбург</span>
+        <a class="btn g" href="https://t.me/ivan_sergand">Написать в&nbsp;Telegram <span class="ar">→</span></a>
+        <div class="im"><a class="btn o sm" href="https://wa.me/79667948699">WhatsApp</a></div>
+        <div class="tl"><a class="ph" href="tel:+79667948699">+7&nbsp;966 794-86-99</a></div>
       </div>
     </div>
+    <nav class="links ch">
+      <a href="https://t.me/mtk_vostok_avto"><span><b>Telegram-канал</b><small>автомобили и&nbsp;новости</small></span><span class="ar">→</span></a>
+    </nav>
   </div>
 </section>
 </main>
