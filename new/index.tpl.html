@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>МТК Восток-Авто — автомобили из Китая под ключ</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Новые и б/у автомобили из Китая под льготный утильсбор: подбор, проверка, договор, доставка, растаможка, электронный ПТС.">
+<meta name="theme-color" content="#0b1f45">
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<link rel="preload" href="fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Inter';src:url('fonts/inter.woff2') format('woff2');font-weight:100 900;font-display:swap}
+:root{--navy:#0b1f45;--navy2:#0f2a63;--blue:#2b5797;--blue2:#3d6fc4;--sky:#e9eff9;--bg:#f4f7fc;--ink:#0b1730;--muted:#5a6a84;--line:rgba(11,31,69,.12);--hh:76px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:var(--hh)}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-optical-sizing:auto;color:var(--ink);background:#fff;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.wrap{max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+.kick{font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);font-weight:500}
+.kick.l{color:rgba(255,255,255,.72)}
+h1,h2,h3{font-weight:300;letter-spacing:-.03em;line-height:1.04}
+.h2{font-size:clamp(36px,5.4vw,80px);margin-top:18px}
+.h2 em{font-style:normal;color:var(--blue)}
+.lead{font-size:clamp(17px,1.35vw,20px);color:var(--muted);max-width:620px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:12px;height:54px;padding:0 30px;border-radius:999px;font-size:16px;font-weight:500;transition:background .3s,color .3s,transform .3s,border-color .3s;white-space:nowrap}
+.btn:hover{transform:translateY(-2px)}
+.btn.w{background:#fff;color:var(--navy)}
+.btn.w:hover{background:var(--sky)}
+.btn.o{border:1px solid rgba(255,255,255,.55);color:#fff}
+.btn.o:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.btn.b{background:var(--blue);color:#fff}
+.btn.b:hover{background:var(--navy2)}
+.btn.ob{border:1px solid var(--line);color:var(--ink)}
+.btn.ob:hover{border-color:var(--blue);color:var(--blue)}
+.ar{transition:transform .3s}.btn:hover .ar{transform:translateX(4px)}
+
+/* шапка: прозрачная над первым экраном, белая при прокрутке */
+.hdr{position:fixed;inset:0 0 auto 0;z-index:60;height:var(--hh);transition:background .4s,box-shadow .4s,transform .4s;color:#fff}
+.hdr.solid{background:rgba(255,255,255,.86);-webkit-backdrop-filter:saturate(1.6) blur(18px);backdrop-filter:saturate(1.6) blur(18px);box-shadow:0 1px 0 var(--line);color:var(--ink)}
+.hdr.hide{transform:translateY(-100%)}
+.hrow{display:flex;align-items:center;gap:28px;height:100%}
+.logo{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.logo .lg{width:48px;height:48px}
+.logo .nm{position:relative;width:190px}
+.logo .nm img{width:100%;height:auto;transition:opacity .4s}
+.logo .nm .b{position:absolute;inset:0;opacity:0}
+.hdr.solid .logo .nm .b{opacity:1}.hdr.solid .logo .nm .w{opacity:0}
+.menu{display:flex;gap:30px;margin-left:auto;font-size:15px}
+.menu a{position:relative;opacity:.86;transition:opacity .3s;white-space:nowrap}
+.menu a:after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.menu a:hover{opacity:1}.menu a:hover:after{transform:scaleX(1)}
+.hdr .cta{height:44px;padding:0 22px;font-size:15px;border:1px solid currentColor;border-radius:999px;display:inline-flex;align-items:center;transition:background .3s,color .3s,border-color .3s}
+.hdr .cta:hover{background:#fff;color:var(--navy);border-color:#fff}
+.hdr.solid .cta{background:var(--blue);border-color:var(--blue);color:#fff}
+.hdr.solid .cta:hover{background:var(--navy2);border-color:var(--navy2)}
+.burger{display:none;width:44px;height:44px;margin-left:auto;position:relative}
+.burger i{position:absolute;left:11px;right:11px;height:1.5px;background:currentColor;transition:transform .35s,top .35s}
+.burger i:first-child{top:17px}.burger i:last-child{top:26px}
+.open .burger i:first-child{top:21px;transform:rotate(45deg)}.open .burger i:last-child{top:21px;transform:rotate(-45deg)}
+.drawer{position:fixed;inset:0;z-index:55;background:var(--navy);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:90px 28px 40px;gap:6px;opacity:0;pointer-events:none;transition:opacity .4s}
+.drawer a{font-size:32px;font-weight:300;letter-spacing:-.02em;padding:6px 0;transform:translateY(16px);transition:transform .5s}
+.open .drawer{opacity:1;pointer-events:auto}.open .drawer a{transform:none}
+.open .hdr{background:transparent;box-shadow:none;color:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
+.open .hdr .logo .nm .b{opacity:0}.open .hdr .logo .nm .w{opacity:1}
+
+/* первый экран: фото сменяют друг друга с медленным наездом */
+.hero{position:relative;height:100vh;height:100svh;min-height:600px;background:radial-gradient(70% 90% at 68% 52%,#24509c,#0f2a63 55%,#0b1f45);color:#fff;overflow:hidden}
+.slides{position:absolute;right:-3vw;top:50%;width:min(70vw,176vh);aspect-ratio:2200/1228;transform:translateY(-47%);-webkit-mask-image:radial-gradient(closest-side,#000 64%,transparent);mask-image:radial-gradient(closest-side,#000 64%,transparent)}
+.slides picture{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease}
+.slides picture.on{opacity:1}
+.slides img{width:100%;height:100%;object-fit:cover;transform:scale(1.02)}
+.slides .on img{animation:kb 9s linear forwards}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.1)}}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,18,44,.35) 0,rgba(6,18,44,0) 22%,rgba(6,18,44,0) 70%,rgba(6,18,44,.45) 100%)}
+.hc{position:absolute;left:0;right:0;top:50%;transform:translateY(-42%);will-change:transform,opacity}
+.hc>*{max-width:min(46vw,640px)}
+.hero h1{font-size:clamp(44px,5.6vw,96px);margin-top:18px}
+.hero h1 span{color:#9cc0ff}
+.hero .sub{font-size:clamp(17px,1.4vw,21px);max-width:min(44vw,600px);margin-top:22px;color:rgba(255,255,255,.84)}
+.hero .btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.dots{position:absolute;right:clamp(20px,4vw,56px);bottom:clamp(60px,11vh,124px);display:flex;gap:8px}
+.dots i{width:34px;height:2px;background:rgba(255,255,255,.3);overflow:hidden;position:relative}
+.dots i.on:after{content:"";position:absolute;inset:0;background:#fff;animation:bar 6s linear forwards;transform-origin:left}
+@keyframes bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);width:1px;height:46px;background:rgba(255,255,255,.25);overflow:hidden}
+.hint:after{content:"";position:absolute;left:0;top:-46px;width:1px;height:46px;background:#fff;animation:drop 2.2s ease-in-out infinite}
+@keyframes drop{to{top:46px}}
+
+/* текст подсвечивается по словам при прокрутке */
+.intro{padding:clamp(110px,16vw,220px) 0 clamp(70px,9vw,120px)}
+.words{font-size:clamp(30px,4.3vw,64px);font-weight:300;letter-spacing:-.028em;line-height:1.14;max-width:1180px}
+.words .w{color:rgba(11,23,48,.14);transition:color .45s}
+.words .w.on{color:var(--ink)}
+.words .w.on.k{color:var(--blue)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:clamp(70px,9vw,120px);border-top:1px solid var(--line);padding-top:36px}
+.stats b{display:block;font-size:clamp(44px,5vw,76px);font-weight:200;letter-spacing:-.04em;line-height:1;color:var(--navy2);white-space:nowrap}
+.stats span{display:block;color:var(--muted);font-size:15px;margin-top:12px;max-width:220px}
+
+/* фото дороги раскрывается на весь экран при прокрутке */
+.grow{height:260vh;position:relative}
+.grow .st{position:sticky;top:0;height:100vh;height:100svh;display:grid;place-items:center;overflow:hidden}
+.grow .fr{position:relative;width:60vw;height:62vh;border-radius:28px;overflow:hidden;will-change:width,height,border-radius}
+.grow .fr picture,.grow .fr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 62%}
+.grow .fr:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,18,44,0) 40%,rgba(6,18,44,.7));opacity:var(--o,0)}
+.grow .gt{position:absolute;left:0;right:0;bottom:clamp(50px,10vh,110px);color:#fff;opacity:var(--o,0);transform:translateY(calc((1 - var(--o,0)) * 40px))}
+.grow .gt h2{font-size:clamp(40px,6vw,96px)}
+.grow .gt p{max-width:560px;margin-top:18px;color:rgba(255,255,255,.86);font-size:clamp(16px,1.3vw,19px)}
+
+/* семь шагов: лента едет вбок при прокрутке вниз */
+.how{position:relative;background:var(--bg)}
+.how .st{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding-top:var(--hh)}
+.how .hh{display:flex;align-items:flex-end;justify-content:space-between;gap:40px}
+.how .hh p{max-width:380px;color:var(--muted)}
+.track{display:flex;gap:22px;margin-top:clamp(30px,5vh,56px);padding:0 clamp(20px,4vw,56px);will-change:transform;width:max-content}
+.step{width:clamp(300px,30vw,430px);min-height:clamp(330px,46vh,440px);background:#fff;border-radius:24px;padding:34px;display:flex;flex-direction:column;box-shadow:0 1px 2px rgba(11,31,69,.04),0 24px 50px -30px rgba(11,31,69,.25)}
+.step .n{font-size:84px;font-weight:200;letter-spacing:-.05em;line-height:.9;color:var(--blue)}
+.step h3{font-size:28px;font-weight:400;margin-top:auto;padding-top:30px}
+.step p{color:var(--muted);margin-top:12px;font-size:16px}
+.step .pay{margin-top:16px;font-size:14px;color:var(--navy2);background:var(--sky);border-radius:12px;padding:10px 14px}
+.step.ph{padding:0;overflow:hidden;position:relative;color:#fff}
+.step.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.step.ph:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,18,44,0) 35%,rgba(6,18,44,.85))}
+.step.ph div{position:relative;z-index:1;margin-top:auto;padding:30px}
+.step.ph p{color:rgba(255,255,255,.85)}
+.prog{height:2px;background:var(--line);margin-top:40px;position:relative;overflow:hidden}
+.prog i{position:absolute;inset:0;background:var(--blue);transform:scaleX(var(--p,0));transform-origin:left}
+
+/* каталог */
+.cat{padding:clamp(100px,12vw,170px) 0 clamp(80px,9vw,130px)}
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px}
+.tab{height:46px;padding:0 22px;border-radius:999px;border:1px solid var(--line);font-size:15px;transition:all .3s}
+.tab small{color:var(--muted);margin-left:6px;transition:color .3s}
+.tab:hover{border-color:var(--blue)}
+.tab.on{background:var(--navy2);border-color:var(--navy2);color:#fff}.tab.on small{color:rgba(255,255,255,.6)}
+.tnote{margin-top:16px;color:var(--muted);font-size:15px;min-height:24px}
+.rail{position:relative;margin-top:30px}
+.cards{display:none;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:6px clamp(20px,4vw,56px) 26px;scroll-padding:0 clamp(20px,4vw,56px)}
+.cards::-webkit-scrollbar{display:none}
+.cards.on{display:flex}
+.card{flex:0 0 clamp(270px,26vw,380px);scroll-snap-align:start;background:#fff;border-radius:22px;overflow:hidden;border:1px solid var(--line);transition:transform .4s,box-shadow .4s}
+.card:hover{transform:translateY(-4px);box-shadow:0 26px 50px -30px rgba(11,31,69,.4)}
+.card .im{aspect-ratio:17/10;overflow:hidden;background:var(--sky)}
+.card .im img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.card:hover .im img{transform:scale(1.06)}
+.card .t{padding:20px 22px 22px}
+.card h3{font-size:20px;font-weight:500;letter-spacing:-.01em}
+.card .sp{color:var(--muted);font-size:14px;margin-top:6px}
+.card .pr{margin-top:16px;font-size:22px;font-weight:300;letter-spacing:-.02em;color:var(--navy2)}
+.card .pr small{display:block;font-size:12.5px;color:var(--muted);letter-spacing:0;margin-top:2px}
+.arrows{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
+.arrows button{width:50px;height:50px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:all .3s}
+.arrows button:hover{border-color:var(--blue);color:var(--blue)}
+.arrows svg{width:20px;height:20px}
+
+/* пример машины: фото поворачиваются при прокрутке */
+.car{background:var(--navy);color:#fff;padding:clamp(100px,12vw,170px) 0}
+.car .h2 em{color:#9cc0ff}
+.car .lead{color:rgba(255,255,255,.72)}
+.cgrid{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(30px,5vw,80px);margin-top:60px}
+.spin{position:sticky;top:calc(var(--hh) + 24px);z-index:2;align-self:start;aspect-ratio:4/3;border-radius:24px;overflow:hidden;background:#13306b}
+.spin img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .25s}
+.spin img.on{opacity:1}
+.spin .badge{position:absolute;left:18px;top:18px;z-index:2;background:rgba(255,255,255,.92);color:var(--navy);font-size:13px;font-weight:500;border-radius:999px;padding:8px 14px}
+.spin .deg{position:absolute;right:18px;bottom:18px;z-index:2;font-size:13px;color:rgba(255,255,255,.85);background:rgba(6,18,44,.45);border-radius:999px;padding:7px 12px}
+.facts{display:flex;flex-direction:column}
+.fact{padding:clamp(26px,4.4vh,40px) 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.fact:first-child{padding-top:0}
+.fact .k{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.fact .v{font-size:clamp(26px,2.6vw,38px);font-weight:300;letter-spacing:-.02em;margin-top:8px}
+.fact p{color:rgba(255,255,255,.7);margin-top:8px;font-size:15.5px}
+.fact.big .v{font-size:clamp(40px,4.4vw,64px);font-weight:200;color:#9cc0ff}
+.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}
+.thumbs img{aspect-ratio:4/3;object-fit:cover;border-radius:10px;width:100%}
+.car .btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+
+/* цена */
+.price{padding:clamp(100px,12vw,170px) 0}
+.pays{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:70px;position:relative}
+.pays:before{content:"";position:absolute;left:0;right:0;top:27px;height:1px;background:var(--line)}
+.pays:after{content:"";position:absolute;left:0;right:0;top:27px;height:1px;background:var(--blue);transform:scaleX(var(--p,0));transform-origin:left}
+.pay4{position:relative}
+.pay4 .c{width:56px;height:56px;border-radius:50%;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-size:20px;font-weight:400;color:var(--blue);position:relative;z-index:1;transition:all .5s}
+.pay4.on .c{background:var(--blue);border-color:var(--blue);color:#fff}
+.pay4 h3{font-size:22px;font-weight:400;margin-top:26px;letter-spacing:-.01em}
+.pay4 .s{font-size:clamp(28px,2.6vw,38px);font-weight:200;letter-spacing:-.03em;color:var(--navy2);margin-top:10px;line-height:1.1}
+.pay4 p{color:var(--muted);font-size:15px;margin-top:10px}
+.pay4 ul{list-style:none;margin-top:12px;font-size:14.5px;color:var(--muted)}
+.pay4 li{padding:7px 0;border-top:1px solid var(--line)}
+.pay4 li b{font-weight:500;color:var(--ink)}
+.pnote{margin-top:40px;color:var(--muted);font-size:15px}
+
+/* выданные */
+.deliv{background:var(--bg);padding:clamp(100px,12vw,170px) 0}
+.dgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:60px}
+.dc{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:3/2;background:#ccd6e6;color:#fff}
+.dc img{position:absolute;inset:-8% 0;width:100%;height:116%;object-fit:cover;transition:opacity 1s;will-change:transform}
+.dc img+img{opacity:0}
+.dc:hover img+img,.dc.alt img+img{opacity:1}
+.dc:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,18,44,0) 45%,rgba(6,18,44,.85))}
+.dc .t{position:absolute;left:28px;right:28px;bottom:24px;z-index:1;display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+.dc h3{font-size:clamp(22px,2vw,28px);font-weight:400}
+.dc .sp{font-size:14px;color:rgba(255,255,255,.8);margin-top:6px}
+.dc .pr{text-align:right;font-size:clamp(20px,1.8vw,26px);font-weight:300;white-space:nowrap}
+.dc .pr small{display:block;font-size:12px;color:rgba(255,255,255,.7)}
+
+/* контакты */
+.team{padding:clamp(100px,12vw,170px) 0}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:60px}
+.who{border:1px solid var(--line);border-radius:24px;padding:30px;display:flex;flex-direction:column}
+.who img{width:96px;height:96px;border-radius:50%;object-fit:cover}
+.who h3{font-size:24px;font-weight:400;margin-top:22px}
+.who .r{color:var(--muted);font-size:15px;margin-top:6px;flex:1}
+.who .ph{font-size:20px;font-weight:300;margin-top:22px;display:block}
+.who .mx{font-size:13px;color:var(--muted)}
+.who .bt{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.who .bt a{height:42px;padding:0 18px;border-radius:999px;border:1px solid var(--line);display:inline-flex;align-items:center;font-size:14.5px;transition:all .3s}
+.who .bt a:first-child{background:var(--blue);border-color:var(--blue);color:#fff}
+.who .bt a:hover{border-color:var(--blue)}
+.who .bt a:first-child:hover{background:var(--navy2)}
+
+/* финал */
+.fin{position:relative;min-height:100vh;min-height:100svh;color:#fff;display:flex;align-items:flex-end;overflow:hidden}
+.fin picture,.fin img.bg{position:absolute;inset:-10% 0;width:100%;height:120%;object-fit:cover;object-position:50% 70%;will-change:transform}
+.fin:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,18,44,.15),rgba(6,18,44,.15) 40%,rgba(6,18,44,.85))}
+.fin .wrap{position:relative;z-index:1;width:100%;padding-bottom:clamp(60px,10vh,110px)}
+.fin h2{font-size:clamp(44px,7vw,112px)}
+.fin p{max-width:560px;margin-top:20px;color:rgba(255,255,255,.86);font-size:clamp(16px,1.3vw,19px)}
+.fin .btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+
+footer{background:#081633;color:rgba(255,255,255,.7);padding:60px 0 40px;font-size:14.5px}
+.frow{display:flex;flex-wrap:wrap;justify-content:space-between;gap:30px;align-items:center}
+footer .logo .nm{width:170px}
+footer nav{display:flex;flex-wrap:wrap;gap:22px}
+footer nav a:hover{color:#fff}
+.fbot{margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:13px;color:rgba(255,255,255,.5)}
+
+/* появление при прокрутке */
+.rv{opacity:0;transform:translateY(34px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+@media (max-width:1180px){.menu{gap:20px;font-size:14.5px}.logo .nm{width:160px}}
+@media (max-width:1140px){
+.menu,.hdr .cta{display:none}.burger{display:block}
+.stats{grid-template-columns:repeat(2,1fr);row-gap:40px}
+.cgrid{grid-template-columns:1fr}
+.pays{grid-template-columns:repeat(2,1fr);row-gap:50px}.pays:before,.pays:after{display:none}
+.tgrid{grid-template-columns:1fr;max-width:560px}
+}
+@media (max-width:760px){
+:root{--hh:64px}
+body{font-size:16px}
+.logo .lg{width:40px;height:40px}.logo .nm{width:140px}
+.hero{height:auto;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:calc(var(--hh) + 4px) 0 56px}
+.slides{position:relative;right:auto;left:50%;top:auto;width:150%;transform:translateX(-50%);margin:-2% 0 -9%;flex-shrink:0;-webkit-mask-image:radial-gradient(closest-side,#000 72%,transparent);mask-image:radial-gradient(closest-side,#000 72%,transparent)}
+.hc{position:relative;top:auto;bottom:auto;transform:none}.hc>*{max-width:none}
+.hero h1{font-size:40px;margin-top:12px}.hero .sub{margin-top:16px}.hero .btns{margin-top:26px}
+.hero{background:radial-gradient(120% 70% at 50% 30%,#1a4596,#0b1f45 70%)}
+.hero .shade{background:linear-gradient(180deg,rgba(6,18,44,0) 40%,rgba(6,18,44,.6))}
+.dots{display:none}
+.hero .btns .btn{flex:1 1 auto;justify-content:center}
+.grow{height:auto}
+.grow .st{position:relative;height:auto;display:block}
+.grow .fr{width:100%!important;height:auto!important;aspect-ratio:3/4;border-radius:0!important;--o:1!important}
+.grow .gt{opacity:1;transform:none;bottom:40px}
+.how .st{position:relative;height:auto;padding:90px 0 70px}
+.how .hh{display:block}.how .hh p{margin-top:16px}
+.track{transform:none!important;width:auto;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:10px}
+.track::-webkit-scrollbar{display:none}
+.step{width:82vw;min-height:270px;scroll-snap-align:center;padding:28px}
+.prog{display:none}
+.pays{grid-template-columns:1fr}
+.dgrid{grid-template-columns:1fr}
+.dc{aspect-ratio:1/1}.dc:after{background:linear-gradient(180deg,rgba(6,18,44,0) 30%,rgba(6,18,44,.94) 82%)}
+.dc .t{flex-direction:column;align-items:flex-start;left:20px;right:20px}
+.dc .pr{text-align:left}
+.arrows{display:none}
+.stats b{font-size:44px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="hdr" id="hdr">
+  <div class="wrap hrow">
+    <a class="logo" href="#top"><picture class="lg"><source srcset="../assets/img/mtk_logo112.webp 2x, ../assets/img/mtk_logo168.webp 3x" type="image/webp"><img class="lg" src="../assets/img/mtk_logo112.png" alt="" width="48" height="48"></picture><span class="nm"><img class="w" src="img/name_w.png" alt="МТК Восток-Авто" width="{{NW}}" height="{{NH}}"><img class="b" src="../assets/img/mtk_name.png" alt="" width="{{NW}}" height="{{NH}}"></span></a>
+    <nav class="menu"><a href="#how">Как купить</a><a href="#catalog">Каталог</a><a href="#car">Пример машины</a><a href="#price">Цена</a><a href="#delivered">Выданные</a><a href="#contacts">Контакты</a></nav>
+    <a class="cta" href="#contacts">Написать специалисту</a>
+    <button class="burger" type="button" aria-label="Меню"><i></i><i></i></button>
+  </div>
+</header>
+<nav class="drawer"><a href="#how">Как купить</a><a href="#catalog">Каталог</a><a href="#car">Пример машины</a><a href="#price">Цена</a><a href="#delivered">Выданные</a><a href="#contacts">Контакты</a></nav>
+
+<main>
+<section class="hero" id="top">
+  <div class="slides">{{SLIDES}}</div>
+  <div class="shade"></div>
+  <div class="wrap hc" id="hc">
+    <p class="kick l">МТК Восток-Авто · с 2016 года</p>
+    <h1>Автомобили из&nbsp;Китая.<br><span>Под ключ.</span></h1>
+    <p class="sub">Новые и&nbsp;б/у под&nbsp;льготный утильсбор. Подбираем, проверяем, везём, растаможиваем и&nbsp;передаём Вам с&nbsp;электронным ПТС.</p>
+    <div class="btns"><a class="btn w" href="#catalog">Смотреть каталог <span class="ar">→</span></a><a class="btn o" href="#contacts">Написать специалисту</a></div>
+  </div>
+  <div class="dots">{{DOTS}}</div>
+  <div class="hint" aria-hidden="true"></div>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <p class="words" id="words">Автомобиль из&nbsp;Китая&nbsp;— это не&nbsp;только цена в&nbsp;объявлении. Это *проверка,* *договор,* *доставка,* *таможня* и&nbsp;*документы.* Всё это&nbsp;— наша работа: от&nbsp;выбора модели до&nbsp;выдачи ключей.</p>
+    <div class="stats">
+      <div class="rv"><b>50–65</b><span>дней от&nbsp;оплаты до&nbsp;выдачи&nbsp;— ориентир по&nbsp;договору</span></div>
+      <div class="rv d1"><b data-n="7">7</b><span>этапов от&nbsp;выбора автомобиля до&nbsp;постановки на&nbsp;учёт</span></div>
+      <div class="rv d2"><b data-n="{{NMODELS}}">{{NMODELS}}</b><span>моделей в&nbsp;каталоге под&nbsp;льготный утильсбор</span></div>
+      <div class="rv d3"><b data-n="2016" data-from="1990">2016</b><span>с&nbsp;этого года работаем с&nbsp;Китаем</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="grow" id="grow">
+  <div class="st">
+    <div class="fr" id="fr">
+      <picture><source media="(max-width:760px)" srcset="img/road_m.webp"><img src="img/road.webp" alt="Дорога из Китая в Россию" loading="lazy"></picture>
+      <div class="gt wrap"><p class="kick l">Доставка</p><h2>Из&nbsp;Китая&nbsp;—<br>в&nbsp;ваш город</h2><p>Санкт-Петербург, Екатеринбург, Пермь, Ижевск и&nbsp;другие города. Автовозом до&nbsp;границы и&nbsp;дальше&nbsp;— к&nbsp;Вам.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="st">
+    <div class="wrap hh">
+      <div><p class="kick">Как проходит сделка</p><h2 class="h2">Семь шагов<br>от&nbsp;выбора <em>до&nbsp;ключей</em></h2></div>
+      <p>Срок от&nbsp;оплаты до&nbsp;выдачи&nbsp;— обычно 50–65&nbsp;дней. На&nbsp;каждом шаге Вы знаете, что уже сделано и&nbsp;что дальше.</p>
+    </div>
+    <div class="track" id="track">{{STEPS}}</div>
+    <div class="wrap"><div class="prog" id="prog"><i></i></div></div>
+  </div>
+</section>
+
+<section class="cat" id="catalog">
+  <div class="wrap">
+    <p class="kick rv">Каталог</p>
+    <h2 class="h2 rv d1">{{NMODELS}} моделей<br>под <em>льготный утильсбор</em></h2>
+    <p class="lead rv d2">Цена в&nbsp;карточке&nbsp;— ориентир под&nbsp;ключ. Точную сумму на&nbsp;конкретный автомобиль считаем в&nbsp;коммерческом предложении по&nbsp;курсу дня. Не&nbsp;нашли свою модель&nbsp;— привезём любую под&nbsp;заказ.</p>
+    <div class="tabs rv d2" id="tabs">{{TABS}}</div>
+    <p class="tnote" id="tnote"></p>
+  </div>
+  <div class="rail rv">{{CARDS}}</div>
+  <div class="wrap"><div class="arrows"><button type="button" data-d="-1" aria-label="Назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" data-d="1" aria-label="Вперёд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg></button></div></div>
+</section>
+
+<section class="car" id="car">
+  <div class="wrap">
+    <p class="kick l rv">Так выглядит предложение</p>
+    <h2 class="h2 rv d1">Конкретная машина&nbsp;—<br><em>с&nbsp;фото, проверкой и&nbsp;ценой</em></h2>
+    <p class="lead rv d2">Мы не&nbsp;продаём «модель вообще». Находим конкретный автомобиль в&nbsp;Китае, проверяем его и&nbsp;считаем итог под&nbsp;ключ до&nbsp;рубля. Листайте&nbsp;— машина повернётся.</p>
+    <div class="cgrid">
+      <div class="spin" id="spin"><span class="badge">Пример · Nissan Kicks</span>{{SPIN}}<span class="deg" id="deg">Вид спереди</span></div>
+      <div class="facts">
+        <div class="fact rv"><div class="k">Автомобиль</div><div class="v">Nissan Kicks 1.5 XV Deluxe</div><p>Dongfeng Nissan · белый, чёрная крыша</p></div>
+        <div class="fact rv"><div class="k">Год и пробег</div><div class="v">Февраль 2022 · 29&nbsp;300&nbsp;км</div><p>Пробег и&nbsp;история&nbsp;— по&nbsp;базам Китая, состояние&nbsp;— на&nbsp;месте</p></div>
+        <div class="fact rv"><div class="k">Двигатель и коробка</div><div class="v">1,5 л · 122 л.с. · вариатор</div><p>До&nbsp;160 л.с.&nbsp;— утильсбор льготный, 5&nbsp;200&nbsp;₽</p></div>
+        <div class="fact rv"><div class="k">Проверка</div><div class="v">VIN, шильд, салон, фото</div><div class="thumbs">{{THUMBS}}</div></div>
+        <div class="fact big rv"><div class="k">Итого под ключ в Санкт-Петербурге</div><div class="v">1&nbsp;751&nbsp;907&nbsp;₽</div><p>Автомобиль, доставка, растаможка, документы и&nbsp;наши услуги. Расчёт по&nbsp;курсу на&nbsp;25.09.2026.</p>
+          <div class="btns"><a class="btn w" href="../foto/kicks-xv-2022/">Все 18 фото <span class="ar">→</span></a><a class="btn o" href="#contacts">Хочу такую же</a></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="price" id="price">
+  <div class="wrap">
+    <p class="kick rv">Что входит в цену</p>
+    <h2 class="h2 rv d1">Одна цена&nbsp;— <em>под&nbsp;ключ</em></h2>
+    <p class="lead rv d2">Автомобиль, доставка, растаможка, документы и&nbsp;наши услуги. Платите в&nbsp;четыре этапа по&nbsp;договору, без&nbsp;скрытых платежей.</p>
+    <div class="pays" id="pays">
+      <div class="pay4"><div class="c">1</div><h3>Предоплата</h3><div class="s">50&nbsp;000&nbsp;₽</div><p>При подписании договора&nbsp;— в&nbsp;счёт подбора и&nbsp;сопровождения сделки (всего 90&nbsp;000&nbsp;₽).</p></div>
+      <div class="pay4"><div class="c">2</div><h3>Оплата автомобиля</h3><div class="s">По&nbsp;курсу ВТБ</div><p>После договора, через ВТБ по&nbsp;контракту и&nbsp;инвойсу. С&nbsp;этой оплаты автомобиль Ваш.</p><ul><li><b>Автомобиль</b> в&nbsp;Китае</li><li><b>Доставка</b> автовозом в&nbsp;Россию</li><li><b>Погрузка</b> и&nbsp;доставка по&nbsp;Китаю</li><li><b>Комиссия банка</b> 2%</li></ul></div>
+      <div class="pay4"><div class="c">3</div><h3>Таможня</h3><div class="s">По&nbsp;прибытии</div><p>Пошлина, сборы, склад и&nbsp;оформление документов.</p><ul><li><b>Утильсбор</b> льготный: 3&nbsp;400&nbsp;₽ до&nbsp;3&nbsp;лет, 5&nbsp;200&nbsp;₽ от&nbsp;3 до&nbsp;5</li><li><b>СБКТС и ЭПТС</b>, растаможка&nbsp;— 80&nbsp;000&nbsp;₽</li></ul></div>
+      <div class="pay4"><div class="c">4</div><h3>При выдаче</h3><div class="s">40&nbsp;000&nbsp;₽</div><p>Остаток за&nbsp;подбор и&nbsp;сопровождение. Получаете ключи, ЭПТС и&nbsp;таможенные документы.</p></div>
+    </div>
+    <p class="pnote rv">Оплачивается отдельно: постановка на&nbsp;учёт в&nbsp;ГИБДД и&nbsp;страховка&nbsp;— по&nbsp;тарифам ГИБДД и&nbsp;страховой.</p>
+  </div>
+</section>
+
+<section class="deliv" id="delivered">
+  <div class="wrap">
+    <p class="kick rv">Наша работа</p>
+    <h2 class="h2 rv d1">Выданные <em>автомобили</em></h2>
+    <p class="lead rv d2">Некоторые из&nbsp;машин, которые мы привезли и&nbsp;передали владельцам. Цены&nbsp;— итог под&nbsp;ключ по&nbsp;договору.</p>
+    <div class="dgrid">{{DELIV}}</div>
+  </div>
+</section>
+
+<section class="team" id="contacts">
+  <div class="wrap">
+    <p class="kick rv">Связаться</p>
+    <h2 class="h2 rv d1">Напишите <em>специалисту</em></h2>
+    <p class="lead rv d2">Расскажите, какую машину и&nbsp;в&nbsp;какой город хотите,&nbsp;— подберём варианты и&nbsp;посчитаем стоимость под&nbsp;ключ.</p>
+    <div class="tgrid">{{TEAM}}</div>
+  </div>
+</section>
+
+<section class="fin">
+  <picture><source media="(max-width:760px)" srcset="img/road_m.webp"><img class="bg" id="finbg" src="img/road.webp" alt="" loading="lazy"></picture>
+  <div class="wrap">
+    <h2 class="rv">Ваш автомобиль<br>из&nbsp;Китая. Под&nbsp;ключ.</h2>
+    <p class="rv d1">Новые машины, подборки и&nbsp;выданные автомобили&nbsp;— в&nbsp;нашем Telegram-канале.</p>
+    <div class="btns rv d2"><a class="btn w" href="https://t.me/mtk_vostok_avto">Telegram-канал <span class="ar">→</span></a><a class="btn o" href="#contacts">Написать специалисту</a></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="frow">
+      <a class="logo" href="#top"><img class="lg" src="../assets/img/mtk_logo112.webp" alt="" width="48" height="48"><span class="nm"><img src="img/name_w.png" alt="МТК Восток-Авто" width="{{NW}}" height="{{NH}}"></span></a>
+      <nav><a href="#how">Как купить</a><a href="#catalog">Каталог</a><a href="#price">Цена</a><a href="#delivered">Выданные</a><a href="#contacts">Контакты</a><a href="https://t.me/mtk_vostok_avto">Telegram-канал</a></nav>
+    </div>
+    <div class="fbot"><span>© 2026 МТК Восток-Авто · Международная транспортная компания</span><span>Пробная версия нового сайта</span></div>
+  </div>
+</footer>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const mob=()=>innerWidth<=760;
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+
+// первый экран: смена фото
+const sl=$$('.slides picture'),dt=$$('.dots i');let si=0;
+const show=i=>{sl.forEach((e,k)=>e.classList.toggle('on',k==i));dt.forEach((e,k)=>{e.classList.remove('on');if(k==i){void e.offsetWidth;e.classList.add('on')}})};
+show(0);if(!RM)setInterval(()=>{si=(si+1)%sl.length;show(si)},6000);
+
+// меню на телефоне
+$('.burger').onclick=()=>document.body.classList.toggle('open');
+$$('.drawer a').forEach(a=>a.onclick=()=>document.body.classList.remove('open'));
+
+// слова для подсветки
+const W=$('#words');
+W.innerHTML=W.innerHTML.split(/(\s+)/).map(t=>{if(/^\s+$/.test(t)||!t)return t;const k=t.includes('*');return `<span class="w${k?' k':''}">${t.replace(/\*/g,'')}</span>`}).join('');
+const ws=$$('#words .w');
+
+// появление
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+$$('.rv').forEach(e=>io.observe(e));
+// счётчики
+const co=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;co.unobserve(e.target);const b=e.target,n=+b.dataset.n,f=+(b.dataset.from||0),t0=performance.now();
+  const step=t=>{const p=clamp((t-t0)/1600),v=Math.round(f+(n-f)*(1-Math.pow(1-p,3)));b.textContent=v;if(p<1)requestAnimationFrame(step)};if(!RM)requestAnimationFrame(step)}),{threshold:.6});
+$$('[data-n]').forEach(e=>co.observe(e));
+
+// каталог: вкладки и стрелки
+const tabs=$$('.tab'),lists=$$('.cards'),tn=$('#tnote');
+const pick=i=>{tabs.forEach((t,k)=>t.classList.toggle('on',k==i));lists.forEach((l,k)=>{l.classList.toggle('on',k==i);if(k==i)l.scrollLeft=0});tn.textContent=tabs[i].dataset.note};
+tabs.forEach((t,i)=>t.onclick=()=>pick(i));pick(0);
+$$('.arrows button').forEach(b=>b.onclick=()=>{const l=$('.cards.on');l.scrollBy({left:+b.dataset.d*l.clientWidth*.8,behavior:'smooth'})});
+
+// пример машины: поворот при прокрутке
+const sp=$$('#spin img'),deg=$('#deg'),car=$('#car'),facts=$('.facts');
+const names=JSON.parse('{{SPIN_NAMES}}');
+
+const hdr=$('#hdr'),hero=$('.hero'),hc=$('#hc'),fr=$('#fr'),grow=$('#grow'),how=$('#how'),track=$('#track'),prog=$('#prog'),pays=$('#pays'),fin=$('#finbg');
+let lastY=scrollY,ticking=false;
+function frame(){
+  ticking=false;const y=scrollY,vh=innerHeight,vw=innerWidth;
+  // шапка
+  const pastHero=y>hero.offsetHeight-90;hdr.classList.toggle('solid',pastHero);
+  hdr.classList.toggle('hide',pastHero&&y>lastY+4&&y>vh*1.5&&!document.body.classList.contains('open'));
+  if(y<lastY-4)hdr.classList.remove('hide');lastY=y;
+  if(RM)return;
+  // первый экран уходит
+  if(y<vh*1.2){const p=clamp(y/vh);hc.style.transform=mob()?`translateY(${p*-50}px)`:`translateY(calc(-42% - ${p*80}px))`;hc.style.opacity=mob()?1-p*.9:1-p*1.3}
+  // слова
+  const r=W.getBoundingClientRect(),wp=clamp((vh*.86-r.top)/(r.height+vh*.36)),nOn=Math.round(wp*ws.length*1.08);
+  ws.forEach((w,i)=>w.classList.toggle('on',i<nOn));
+  // дорога раскрывается
+  if(!mob()){const g=grow.getBoundingClientRect(),gp=clamp(-g.top/(g.height-vh)),e=clamp(gp/.6);
+    fr.style.width=`${60+40*e}vw`;fr.style.height=`${62+38*e}vh`;fr.style.borderRadius=`${28*(1-e)}px`;fr.style.setProperty('--o',clamp((gp-.45)/.3))}
+  // шаги едут вбок
+  if(!mob()){const h=how.getBoundingClientRect(),dist=track.scrollWidth-vw;how.style.height=`${dist+vh}px`;
+    const hp=clamp(-h.top/(how.offsetHeight-vh));track.style.transform=`translateX(${-hp*dist}px)`;prog.style.setProperty('--p',hp)}
+  else how.style.height='';
+  // поворот машины
+  const sr=$('#spin').getBoundingClientRect(),f=facts.getBoundingClientRect(),cp=clamp((vh*.55-f.top)/(f.height-vh*.25)),k=Math.min(sp.length-1,Math.floor(cp*sp.length));
+  sp.forEach((im,i)=>im.classList.toggle('on',i==k));deg.textContent=names[k];
+  // платежи
+  const pr=pays.getBoundingClientRect(),pp=clamp((vh*.8-pr.top)/(vh*.55));pays.style.setProperty('--p',pp);
+  $$('.pay4').forEach((e,i)=>e.classList.toggle('on',pp>=i/3-.01&&pp>0));
+  // выданные: лёгкий параллакс
+  $$('.dc').forEach(d=>{const b=d.getBoundingClientRect();if(b.bottom<0||b.top>vh)return;const q=(b.top+b.height/2-vh/2)/vh;d.querySelectorAll('img').forEach(im=>im.style.transform=`translateY(${q*-6}%)`)});
+  // финал
+  const fb=fin.getBoundingClientRect();if(fb.top<vh&&fb.bottom>0)fin.style.transform=`translateY(${(fb.top/vh)*-8}%)`;
+}
+const req=()=>{if(!ticking){ticking=true;requestAnimationFrame(frame)}};
+addEventListener('scroll',req,{passive:true});addEventListener('resize',req);addEventListener('load',req);frame();
+// выданные: на телефоне второе фото по очереди
+if(!RM)setInterval(()=>$$('.dc').forEach((d,i)=>setTimeout(()=>d.classList.toggle('alt'),i*500)),4200);
+})();
+</script>
+</body>
+</html>
