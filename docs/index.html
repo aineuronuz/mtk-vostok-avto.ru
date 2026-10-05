@@ -17,6 +17,8 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#f5f7fb">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preload" href="assets/fonts/Unbounded-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/RobotoFlex-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <script>try{var _f=[.9,1,1.12,1.25,1.4][parseInt(localStorage.getItem('yz-fs'),10)];if(_f)document.documentElement.style.setProperty('--fs',_f)}catch(e){}</script>
@@ -288,6 +290,16 @@ html.mtk.indigo{--bg:#f5f5fb;--bg2:#e9e9f6;--line:rgba(39,50,109,.15);--ink:#111
 .team .im{display:flex;gap:10px;margin-top:10px}.team .im .btn{flex:1;padding:0 12px}
 .team .tl{min-height:64px}.team .mx{display:block;color:var(--muted);font-size:13px;margin-top:4px}
 .fin2 .links.ch{position:relative;margin-top:34px}
+/* шапка: круглый логотип и название, как на обложке КП МТК (Юрий 05.10.2026, временно) */
+.top .brand{flex:0 1 auto;min-width:0;gap:12px}
+.top .brand .lg{flex-shrink:0;line-height:0}.top .brand .lg img{width:56px;height:56px}
+.top .bv{width:280px;flex:0 1 auto;min-width:0;line-height:0}.top .bv img{display:block;width:100%;height:auto}
+.top .nav,.top .tools,.top .btn{flex-shrink:0}
+@media (max-width:1100px){.top .bv .tg{display:none}.top .brand .lg img{width:48px;height:48px}}
+@media (max-width:920px) and (min-width:861px){.top .bv{display:none}}
+@media (max-width:860px) and (min-width:721px){.top .bv .tg{display:block}}
+@media (max-width:560px){.top .brand{gap:8px}.top .brand .lg img{width:40px;height:40px}}
+@media (max-width:374px){.top .bv{display:none}}
 @media (max-width:980px){.team{grid-template-columns:1fr;max-width:480px}.team .tl{min-height:0}}
 </style>
 </head>
@@ -295,7 +307,7 @@ html.mtk.indigo{--bg:#f5f5fb;--bg2:#e9e9f6;--line:rgba(39,50,109,.15);--ink:#111
 
 <header class="top" id="top">
   <div class="wrap">
-    <a class="brand" href="#"><span><b class="wm">МТК <span class="nw">Восток-Авто</span></b><small>автомобили из&nbsp;Китая под&nbsp;ключ</small></span></a>
+    <a class="brand" href="#"><picture class="lg"><source srcset="assets/img/mtk_logo56.webp 1x, assets/img/mtk_logo112.webp 2x, assets/img/mtk_logo168.webp 3x" type="image/webp"><img src="assets/img/mtk_logo112.png" alt="" width="56" height="56"></picture><span class="bv"><img src="assets/img/mtk_name.png" alt="МТК Восток-Авто" width="280" height="25"><img class="tg" src="assets/img/mtk_tag.png" alt="Международная транспортная компания" width="280" height="12"></span></a>
     <nav class="nav"><a href="#steps">Этапы</a><a href="#price">Цена</a><a href="#cars">Выданные</a><a href="#catalog">Каталог</a><a href="#contacts">Контакты</a></nav>
     <div class="tools"><button class="tb" id="fsm" type="button" aria-label="Уменьшить шрифт">A−</button><button class="tb" id="fsp" type="button" aria-label="Увеличить шрифт">A+</button></div>
     <a class="btn g sm" href="#contacts">Написать<span class="hs">&nbsp;Юрию</span></a>

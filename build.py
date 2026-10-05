@@ -31,6 +31,16 @@ html.mtk.indigo{--bg:#f5f5fb;--bg2:#e9e9f6;--line:rgba(39,50,109,.15);--ink:#111
 .team .im{display:flex;gap:10px;margin-top:10px}.team .im .btn{flex:1;padding:0 12px}
 .team .tl{min-height:64px}.team .mx{display:block;color:var(--muted);font-size:13px;margin-top:4px}
 .fin2 .links.ch{position:relative;margin-top:34px}
+/* шапка: круглый логотип и название, как на обложке КП МТК (Юрий 05.10.2026, временно) */
+.top .brand{flex:0 1 auto;min-width:0;gap:12px}
+.top .brand .lg{flex-shrink:0;line-height:0}.top .brand .lg img{width:56px;height:56px}
+.top .bv{width:280px;flex:0 1 auto;min-width:0;line-height:0}.top .bv img{display:block;width:100%;height:auto}
+.top .nav,.top .tools,.top .btn{flex-shrink:0}
+@media (max-width:1100px){.top .bv .tg{display:none}.top .brand .lg img{width:48px;height:48px}}
+@media (max-width:920px) and (min-width:861px){.top .bv{display:none}}
+@media (max-width:860px) and (min-width:721px){.top .bv .tg{display:block}}
+@media (max-width:560px){.top .brand{gap:8px}.top .brand .lg img{width:40px;height:40px}}
+@media (max-width:374px){.top .bv{display:none}}
 @media (max-width:980px){.team{grid-template-columns:1fr;max-width:480px}.team .tl{min-height:0}}
 """
 
@@ -43,6 +53,51 @@ TEAM = [
     dict(img="ivan", name="Иван Сергеев", note="Заказы для Уральского и Приволжского федеральных округов",
          tg="ivan_sergand", wa="79667948699", mx=None, tel="+7 966 794-86-99"),
 ]
+
+
+# логотип и название — те же, что в КП и каталогах МТК (~/auto-china/mtk); для сайта ужаты
+MTK = Path.home() / "auto-china" / "mtk"
+LOGO_SRC = MTK / "logo" / "colors" / "MTK-logo-cvet-03-krupnee.png"
+NAME_SRC = MTK / "kp" / "nazvanie" / "vostok-avto-gradient.png"
+BOOKMAN = "/usr/share/fonts/opentype/urw-base35/URWBookman-Demi.otf"
+NAME_W = 560   # px картинки названия (на сайте до 280 px — вдвое плотнее экрана)
+BRAND = ('<a class="brand" href="#"><picture class="lg"><source srcset="assets/img/mtk_logo56.webp 1x, assets/img/mtk_logo112.webp 2x, '
+         'assets/img/mtk_logo168.webp 3x" type="image/webp"><img src="assets/img/mtk_logo112.png" alt="" width="56" height="56"></picture>'
+         '<span class="bv"><img src="assets/img/mtk_name.png" alt="МТК Восток-Авто" width="{nw}" height="{nh}">'
+         '<img class="tg" src="assets/img/mtk_tag.png" alt="Международная транспортная компания" width="{tw}" height="{th}"></span></a>')
+
+
+def brand_assets():
+    """Круглый логотип, «ВОСТОК-АВТО» с переливом и подпись «МЕЖДУНАРОДНАЯ ТРАНСПОРТНАЯ КОМПАНИЯ» (Bookman, #2b5797)
+    в ширину названия — пропорции как на обложке КП (gen_kp_mtk.py: название 79 мм, подпись 7.6 pt, отступ 2.6 мм)."""
+    global BRAND
+    from PIL import ImageDraw, ImageFont
+    lg = Image.open(LOGO_SRC).convert("RGBA")
+    lg = lg.crop(lg.getchannel("A").point(lambda v: 255 if v > 200 else 0).getbbox())   # без мягкой тени по краям
+    for px in (56, 112, 168):
+        im = lg.resize((px, px), Image.LANCZOS)
+        im.save(IMG / f"mtk_logo{px}.webp", quality=88, method=6)
+        if px == 112:
+            im.save(IMG / "mtk_logo112.png", optimize=True)
+    lg.resize((64, 64), Image.LANCZOS).quantize(256, method=Image.Quantize.FASTOCTREE).save(OUT / "assets" / "favicon.png", optimize=True)
+    ti = Image.new("RGBA", (180, 180), (245, 247, 251, 255))
+    ti.alpha_composite(lg.resize((164, 164), Image.LANCZOS), (8, 8))
+    ti.convert("RGB").quantize(256).save(OUT / "assets" / "apple-touch-icon.png", optimize=True)
+
+    nm = Image.open(NAME_SRC).convert("RGBA")
+    nm = nm.resize((NAME_W, round(nm.height * NAME_W / nm.width)), Image.LANCZOS)
+    nm.save(IMG / "mtk_name.png", optimize=True)
+    text, mm = "МЕЖДУНАРОДНАЯ ТРАНСПОРТНАЯ КОМПАНИЯ", NAME_W / 79   # px картинки на миллиметр обложки
+    f = ImageFont.truetype(BOOKMAN, round(7.6 * 25.4 / 72 * mm))
+    ls = (NAME_W - f.getlength(text)) / (len(text) - 1)
+    top, bot = f.getbbox("М")[1], f.getbbox("М")[3]
+    gap = round(2.6 * mm * .55)   # на обложке 2.6 мм от строки; от названия до верха букв — чуть больше половины
+    tg = Image.new("RGBA", (NAME_W, gap + bot - top + 2), (0, 0, 0, 0))
+    d = ImageDraw.Draw(tg)
+    for i, c in enumerate(text):
+        d.text((f.getlength(text[:i]) + i * ls, gap - top), c, font=f, fill=(0x2b, 0x57, 0x97, 255))
+    tg.save(IMG / "mtk_tag.png", optimize=True)
+    BRAND = BRAND.format(nw=nm.width // 2, nh=nm.height // 2, tw=tg.width // 2, th=tg.height // 2)
 
 
 def team():
@@ -88,12 +143,12 @@ def build():
     s = s.replace('content="YuraZol Auto"', 'content="МТК Восток-Авто"')
     s = s.replace('content="YuraZol Auto — автомобили из Китая под ключ"', 'content="МТК Восток-Авто — автомобили из Китая под ключ"')
     s = sub(s, '<meta name="theme-color" content="#f4f8f9">', '<meta name="theme-color" content="#f5f7fb">')
-    s = re.sub(r'<link rel="icon"[^>]*>\n<link rel="apple-touch-icon"[^>]*>\n', "", s)   # логотипа пока нет
     s = sub(s, "</style>", PALETTE + "</style>")
 
-    # шапка и подвал без логотипа — только название
-    s = re.sub(r'<a class="brand" href="#"><img src="assets/img/logo96.png"[^>]*><span><b>YuraZol Auto</b>',
-               '<a class="brand" href="#"><span><b class="wm">МТК <span class="nw">Восток-Авто</span></b>', s, count=1)
+    # шапка: круглый логотип и название картинками, как на обложке КП; подвал — только название
+    s, n = re.subn(r'<a class="brand" href="#"><img src="assets/img/logo96.png"[^>]*><span><b>YuraZol Auto</b><small>.*?</small></span></a>',
+                   BRAND, s, count=1)
+    assert n, "нет логотипа в шапке"
     s = re.sub(r'<a class="brand" href="#"><img src="assets/img/logo96.png"[^>]*><span><b>YuraZol Auto</b></span></a>',
                '<a class="brand" href="#"><span><b class="wm">МТК Восток-Авто</b></span></a>', s, count=1)
     s = sub(s, "© 2026 YuraZol Auto", "© 2026 МТК Восток-Авто")
@@ -146,6 +201,7 @@ def assets():
 
 if __name__ == "__main__":
     assets()
+    brand_assets()
     build()
     (OUT / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: https://mtk-vostok-avto.ru/sitemap.xml\n")
     (OUT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
