@@ -37,16 +37,16 @@ html.mtk.indigo{--bg:#f5f5fb;--bg2:#e9e9f6;--line:rgba(39,50,109,.15);--ink:#111
 .top .bv{width:280px;flex:0 1 auto;min-width:0;line-height:0}.top .bv img{display:block;width:100%;height:auto}
 .top .nav,.top .tools,.top .btn{flex-shrink:0}
 @media (max-width:1100px){.top .bv .tg{display:none}.top .brand .lg img{width:48px;height:48px}}
-@media (max-width:920px) and (min-width:861px){.top .bv{display:none}}
+@media (max-width:980px) and (min-width:861px){.top .bv{display:none}}
 @media (max-width:860px) and (min-width:721px){.top .bv .tg{display:block}}
 @media (max-width:560px){.top .brand{gap:8px}.top .brand .lg img{width:40px;height:40px}}
 @media (max-width:374px){.top .bv{display:none}}
 @media (max-width:980px){.team{grid-template-columns:1fr;max-width:480px}.team .tl{min-height:0}}
 """
 
-# контакты: Юрий, Глеб (СЗФО), Иван (УрФО и ПФО) — «Авто» по просьбе Юрия 04.10 и 05.10.2026
+# контакты: Юрий (фамилия через «е»), Глеб (СЗФО), Иван (УрФО и ПФО) — «Авто» и Юрий 04.10 и 05.10.2026
 TEAM = [
-    dict(img="yura", name="Юрий Золотарёв", note="Подбор автомобиля и сопровождение сделки",
+    dict(img="yura", name="Юрий Золотарев", note="Подбор автомобиля и сопровождение сделки",
          tg="YuraZol", wa="79119261617", mx="MAX_HREF", tel="+7 911 926-16-17"),
     dict(img="gleb", name="Глеб Цепелев", note="Заказы для Северо-Западного федерального округа",
          tg="GlebTsepelev", wa="79817613421", mx="phone", tel="+7 981 761-34-21"),
@@ -152,6 +152,9 @@ def build():
     s = re.sub(r'<a class="brand" href="#"><img src="assets/img/logo96.png"[^>]*><span><b>YuraZol Auto</b></span></a>',
                '<a class="brand" href="#"><span><b class="wm">МТК Восток-Авто</b></span></a>', s, count=1)
     s = sub(s, "© 2026 YuraZol Auto", "© 2026 МТК Восток-Авто")
+    # в МТК три специалиста — кнопки «Написать специалисту», не «Юрию» (Юрий 05.10.2026)
+    s = sub(s, 'href="#contacts">Написать<span class="hs">&nbsp;Юрию</span></a>', 'href="#contacts">Написать<span class="hs">&nbsp;специалисту</span></a>')
+    s = sub(s, 'href="#contacts">Написать Юрию <', 'href="#contacts">Написать специалисту <')
     s = sub(s, '<div class="ghost" aria-hidden="true">YURAZOL</div>', '<div class="ghost" aria-hidden="true">VOSTOK</div>')
 
     # главное фото — студийное, без номеров
