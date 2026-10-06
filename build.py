@@ -203,6 +203,7 @@ def assets():
 
 
 if __name__ == "__main__":
+    sys.exit("Старый одностраничный сайт заменён new/site.py (Юрий одобрил 06.10.2026); build.py теперь только источник TEAM")
     assets()
     brand_assets()
     build()

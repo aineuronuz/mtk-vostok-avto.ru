@@ -1,7 +1,7 @@
 """Новый многостраничный сайт МТК Восток-Авто (Юрий 05.10.2026: «как mercedes-benz.com», сине-белый, многостраничный,
 каталог с фильтрами, машины из КП с ценой на сегодня, частые вопросы).
 
-Собирает docs/new/ (адрес mtk-vostok-avto.ru/new/, закрыт от поиска, пока Юрий не одобрит) из:
+Собирает docs/ — основной адрес mtk-vostok-avto.ru (Юрий одобрил 06.10.2026; до того был /new/, закрыт от поиска) из:
   ~/auto-china/catalog/cars_data.py — 92 модели каталога (цены «Авто»);
   new/data/models.json — описания моделей; new/data/kp_cars.json + new/price.py — машины из КП и расчёт под ключ;
   new/data/faq.json — частые вопросы; new/src/s.css, s.js — оформление.
@@ -25,11 +25,11 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parent.parent          # репозиторий mtk-vostok-avto.ru
 NEW = ROOT / "new"
 DATA = NEW / "data"
-OUT = ROOT / "docs" / "new"
+OUT = ROOT / "docs"                                    # docs/foto/, docs/assets/, CNAME — не трогаются
 IMG = OUT / "img"
-BASE = "/new/"                                          # при переезде на основной адрес — "/"
+BASE = "/"
 SITE = "https://mtk-vostok-avto.ru"
-PREVIEW = True                                          # noindex, пока это пробная версия
+PREVIEW = False                                         # True — noindex, для пробной версии
 AC = Path.home() / "auto-china"
 CARS = AC / "catalog" / "cars"
 CARS_MTK = AC / "catalog" / "cars_plate_mtk"           # те же фото с номером «ВОСТОК-АВТО», как в каталоге МТК
@@ -52,6 +52,7 @@ CHANNEL = "https://t.me/mtk_vostok_avto"
 MENU = [("katalog/", "Каталог"), ("avto/", "Авто в Китае"), ("kak-kupit/", "Как купить"), ("stoimost/", "Стоимость"),
         ("vydannye/", "Выданные"), ("voprosy/", "Вопросы"), ("kontakty/", "Контакты")]
 PAGES = []                                              # (путь, приоритет) — для sitemap.xml
+MIN_YEAR = 2022                                         # машины 2021 года не показывать (Юрий 06.10.2026)
 
 
 # ---------- мелочи ----------
@@ -338,7 +339,7 @@ def load_kp(rates):
     spec = importlib.util.spec_from_file_location("mtk_price", NEW / "price.py")
     pm = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(pm)
-    cars = json.loads(p.read_text())
+    cars = [c for c in json.loads(p.read_text()) if not c.get("year") or c["year"] >= MIN_YEAR]
     for c in cars:
         r = pm.calc(c, rates["vtb"], rates["cny"], rates["eur"], TODAY)
         c["price"] = r
@@ -852,6 +853,11 @@ def extras(models, kp, rates):
         lines += [f"- [{c['title']} {c.get('year') or ''}]({SITE}{u('avto/' + c['slug'] + '/')}): {kp_line(c)}; {c['total']:,} ₽ под ключ, {c.get('city') or ''}".replace(",", " ") for c in kp]
     lines += ["", "## Контакты", ""] + [f"- {p['name']} — {p['note']}: {p['tel']}, Telegram @{p['tg']}" for p in TEAM] + [f"- Telegram-канал: {CHANNEL}", ""]
     (OUT / "llms.txt").write_text("\n".join(lines))
+    (OUT / "404.html").write_text(f"""<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>Страница не найдена — МТК Восток-Авто</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<script>var p=location.pathname;if(p.indexOf("/new/")===0)location.replace(p.slice(4)+location.search+location.hash)</script></head>
+<body style="font-family:sans-serif;text-align:center;padding:80px 20px"><h1>Страница не найдена</h1><p><a href="{u()}">На главную МТК Восток-Авто</a></p></body></html>
+""")
     (OUT / "robots.txt").write_text("User-agent: *\nDisallow: /\n" if PREVIEW else f"User-agent: *\nAllow: /\nSitemap: {SITE}{u('sitemap.xml')}\n")
 
 
@@ -887,6 +893,11 @@ def main():
     for c in kp:
         kp_imgs(c)
     kp = [c for c in kp if c.get("imgs")]
+    live = {c["slug"] for c in kp}
+    for d in (OUT / "avto", IMG / "kp"):                # страницы и фото машин, которых больше нет в списке
+        for x in (d.iterdir() if d.exists() else []):
+            if x.is_dir() and x.name not in live:
+                shutil.rmtree(x)
     faq = json.loads((DATA / "faq.json").read_text()) if (DATA / "faq.json").exists() else []
 
     PAGES.clear()
